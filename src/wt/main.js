@@ -26,7 +26,16 @@ const performCalculations = async () => {
 
   let res = await Promise.allSettled(workers);
   console.log(res.map(e => {
+    if (e.status == 'fulfilled') {
+      e.data = e.value;
+      delete e.value
+    }
+    else {
+      e.data = null;
+      delete e.reason;
+    }
     e.status = e.status == "fulfilled" ? "resolved" : "error";
+
     return e;
   }));
 
