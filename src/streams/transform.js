@@ -3,8 +3,7 @@ import { Transform } from "stream";
 const transform = async () => {
   const reverseStream = new Transform({
     transform(chunk, encoding, cb) {
-      this.push(`${[...chunk.toString()].reverse().join("")}\n`);
-      cb();
+      cb(null, `${[...chunk.toString()].reverse().join("")}\n`);
     },
   });
 
