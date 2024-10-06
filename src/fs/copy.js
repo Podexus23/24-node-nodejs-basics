@@ -10,24 +10,15 @@ const copy = async () => {
   const filesCopyDir = path.join(__dirname, "files_copy");
 
   try {
-    await fs.access(filesDir);
+    await fs.cp(filesDir, filesCopyDir, {
+      recursive: true,
+      force: false,
+      errorOnExist: true,
+    });
+    console.log("files copied")
   } catch (error) {
-    if (error.code == "ENOENT")
-      throw new Error(`FS operation failed: src dist don't exists`);
-    else console.log(error);
-    return 1;
-  }
-
-  try {
-    await fs.access(filesCopyDir);
-    throw new Error(`FS operation failed: dest dist exists`);
-  } catch (error) {
-    if (error.code == "ENOENT") {
-      await fs.cp(filesDir, filesCopyDir, { recursive: true });
-      console.log("dir was copied");
-    } else {
-      console.error(error.message);
-    }
+    console.log(error);
+    throw new Error(`FS operation failed`);
   }
 };
 
