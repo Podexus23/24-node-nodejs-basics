@@ -12,7 +12,7 @@ const spawnChildProcess = async (args) => {
     process.stdin.pipe(proc.stdin);
 
     proc.stdout.on("data", (data) => {
-        console.log(Buffer.from(data).toString());
+        console.log("Data came from child process: ", Buffer.from(data).toString());
     });
 
     proc.stderr.on('data', (data) => {
