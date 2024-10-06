@@ -1,6 +1,6 @@
 const parseArgs = () => {
   // Write your code here
-  const args = process.argv;
+  const args = process.argv.slice(2);
 
   const specArgs = [];
   let prev = false;
