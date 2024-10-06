@@ -8,15 +8,11 @@ const create = async () => {
   let path = join(__dirname, "files", "fresh.txt");
 
   try {
-    await fs.access(path);
-    throw new Error("File already exists\nFS operation failed");
+    await fs.writeFile(path, `I am fresh and young`, { flag: "wx" });
   } catch (err) {
-    if (err.code == "ENOENT") {
-      await fs.writeFile(path, `I am fresh and young`);
-      console.log("File created");
-    } else {
-      console.error(err.message);
-    }
+    console.error(err);
+    throw new Error("FS operation failed");
+
   }
 };
 
